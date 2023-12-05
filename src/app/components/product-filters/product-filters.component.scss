@@ -1,4 +1,4 @@
-.filters-container {
+.fields-container {
   display: flex;
   column-gap: 20px;
   justify-content: start;
@@ -6,6 +6,18 @@
   width: 90vw;
 }
 
+.id-input {
+  width: 20%;
+}
+
 .description-input {
   width: 40%;
+}
+
+.cost-input {
+  width: 20%;
+}
+
+.price-input {
+  width: 20%;
 }

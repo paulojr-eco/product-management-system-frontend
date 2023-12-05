@@ -7,7 +7,7 @@ import { ApiResponse } from '../../models/api-response.model';
 @Injectable({
   providedIn: 'root',
 })
-export class ProductService {
+export class ProductsService {
   constructor(private http: HttpClient) {}
 
   private products = new BehaviorSubject<Product[]>([]);
@@ -21,6 +21,22 @@ export class ProductService {
       .subscribe((response) => {
         this.products.next(response.body?.data!);
         this.filteredProducts.next(response.body?.data!);
+      });
+  }
+
+  delete(product: Product) {
+    this.http
+      .delete<ApiResponse<Product>>(
+        `http://localhost:3000/api/product/${product.id}`,
+        { observe: 'response' }
+      )
+      .subscribe((response) => {
+        if (response.status === 200) {
+          this.products.next(this.products.value.filter((p) => p !== product));
+          this.filteredProducts.next(
+            this.products.value.filter((p) => p !== product)
+          );
+        }
       });
   }
 
@@ -38,25 +54,5 @@ export class ProductService {
 
   getFilteredProducts() {
     return this.filteredProducts.asObservable();
-  }
-
-  resetFilters() {
-    this.filteredProducts.next(this.products.value);
-  }
-
-  delete(product: Product) {
-    this.http
-      .delete<ApiResponse<Product>>(
-        `http://localhost:3000/api/product/${product.id}`,
-        { observe: 'response' }
-      )
-      .subscribe((response) => {
-        if (response.status === 200) {
-          this.products.next(this.products.value.filter((p) => p !== product));
-          this.filteredProducts.next(
-            this.products.value.filter((p) => p !== product)
-          );
-        }
-      });
   }
 }

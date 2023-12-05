@@ -1,5 +1,5 @@
-<form class="filters-container">
-  <mat-form-field>
+<form class="fields-container">
+  <mat-form-field class="id-input">
     <mat-label>Código</mat-label>
     <input #idInput matInput type="text" mask="0*" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
   </mat-form-field>
@@ -7,11 +7,11 @@
     <mat-label>Descrição</mat-label>
     <input #descriptionInput matInput type="text" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)" />
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="cost-input">
     <mat-label>Custo</mat-label>
     <input #costInput matInput type="text" mask="0*.00" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class="price-input">
     <mat-label>Preço de Venda</mat-label>
     <input #priceInput matInput type="text" mask="0*.00" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
   </mat-form-field>

@@ -1,0 +1,14 @@
+<form class="fields-container">
+  <mat-form-field class="id-input">
+    <mat-label>Código</mat-label>
+    <input #idInput matInput type="text" readonly required value="{{product.id ? product.id : ''}}"/>
+  </mat-form-field>
+  <mat-form-field class="description-input">
+    <mat-label>Descrição</mat-label>
+    <input #descriptionInput matInput type="text" required value="{{product.descricao ? product.descricao : ''}}"/>
+  </mat-form-field>
+  <mat-form-field class="cost-input">
+    <mat-label>Custo</mat-label>
+    <input #costInput matInput type="text" mask="0*.00" [(ngModel)]="product.custo" name="cost"/>
+  </mat-form-field>
+</form>

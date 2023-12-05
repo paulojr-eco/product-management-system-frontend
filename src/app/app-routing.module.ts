@@ -6,6 +6,7 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 const routes: Routes = [
   { path: '', component: ProductSearchComponent },
   { path: 'product', component: ProductFormComponent },
+  { path: 'product/:id', component: ProductFormComponent },
 ];
 
 @NgModule({

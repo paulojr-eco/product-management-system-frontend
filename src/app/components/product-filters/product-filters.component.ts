@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from '../../models/product.model';
-import { ProductService } from '../../services/product-service/product.service';
+import { ProductsService } from '../../services/products-service/products.service';
 
 @Component({
   selector: 'app-product-filters',
@@ -11,8 +11,8 @@ export class ProductFiltersComponent {
   private products: Product[] = [];
   datemask = [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/];
 
-  constructor(private productService: ProductService) {
-    this.productService.getProducts().subscribe((products) => {
+  constructor(private productsService: ProductsService) {
+    this.productsService.getProducts().subscribe((products) => {
       this.products = products;
     });
   }
@@ -40,6 +40,6 @@ export class ProductFiltersComponent {
       );
     }
 
-    this.productService.setFilteredProducts(filteredProducts);
+    this.productsService.setFilteredProducts(filteredProducts);
   }
 }

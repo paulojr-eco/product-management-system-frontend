@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { ProductSearchComponent } from './components/product-search/product-search.component';
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductFormTableComponent } from './components/product-form-table/product-form-table.component';
+import { ProductFormFieldsComponent } from './components/product-form-fields/product-form-fields.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     ProductFiltersComponent,
     ProductSearchComponent,
     ProductFormComponent,
+    ProductFormTableComponent,
+    ProductFormFieldsComponent,
   ],
   imports: [
     BrowserModule,

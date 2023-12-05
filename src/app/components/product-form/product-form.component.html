@@ -1,1 +1,12 @@
-<p>product-form works!</p>
+<div class="general-container">
+  <app-action-bar
+    [title]="(id ? 'Edição' : 'Cadastro') + ' de Produto'"
+    [actions]="['save', 'delete']"
+  ></app-action-bar>
+  <div class="product-form-container">
+    <div class="product-form-info">
+      <app-product-form-fields></app-product-form-fields>
+      <app-product-form-table></app-product-form-table>
+    </div>
+  </div>
+</div>

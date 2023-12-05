@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product-service/product.service';
+import { ProductsService } from '../../services/products-service/products.service';
 import { Product } from '../../models/product.model';
 
 @Component({
@@ -11,7 +11,7 @@ export class TableProductComponent implements OnInit {
   products: Product[] = [];
   columnsToDisplay = ['codigo', 'descricao', 'custo'];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductsService) {
     this.productService.getFilteredProducts().subscribe((products) => {
       this.products = products;
     });
