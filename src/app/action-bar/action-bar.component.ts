@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class ActionBarComponent {
   @Input() title!: string;
-
+  @Input() actions!: string[];
   constructor() {}
 }

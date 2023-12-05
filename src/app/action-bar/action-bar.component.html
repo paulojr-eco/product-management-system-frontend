@@ -1,3 +1,10 @@
-<div>
-  {{title}}
+<div class="action-bar">
+  <div *ngFor="let action of actions" class="action-container">
+    <button mat-fab class="button-fab">
+      <mat-icon class="icon">{{action}}</mat-icon>
+    </button>
+  </div>
+  <div class="center-element">
+    {{ title }}
+  </div>
 </div>

@@ -1,0 +1,19 @@
+@use "@angular/material" as mat;
+
+.action-bar {
+  position: relative;
+  background-color: mat.get-color-from-palette(mat.$deep-orange-palette, 400);
+  width: 90vw;
+  font-weight: bold;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-container {
+  position: absolute;
+  padding-left: 10px;
+}
