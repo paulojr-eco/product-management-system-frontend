@@ -1,2 +1,73 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@use "@angular/material" as mat;
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$deep-orange-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$my-theme: mat.define-dark-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+ ),
+ density: 0,
+));
+
+@include mat.all-component-themes($my-theme);
+
+html,
+body {
+  height: 100%;
+  background-color: mat.get-color-from-palette(mat.$grey-palette, 900);
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 18px !important;
+  color: white;
+}
+
+.icon {
+  color: white;
+}
+
+.button-fab {
+  width: 40px !important;
+  height: 40px !important;
+  background-color: mat.get-color-from-palette(
+    mat.$blue-palette,
+    500
+  ) !important;
+}
+
+.add-button {
+  background-color: mat.get-color-from-palette(
+    mat.$green-palette,
+    500
+  ) !important;
+}
+
+.save-button {
+  background-color: mat.get-color-from-palette(
+    mat.$blue-palette,
+    500
+  ) !important;
+}
+
+.edit-button {
+  background-color: mat.get-color-from-palette(
+    mat.$amber-palette,
+    400
+  ) !important;
+}
+
+.delete-button {
+  background-color: mat.get-color-from-palette(
+    mat.$red-palette,
+    500
+  ) !important;
+}
+
+.center-element {
+  text-align: center;
+  width: 100%;
+}
