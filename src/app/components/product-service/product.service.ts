@@ -1,8 +1,8 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Product } from '../models/product.model';
-import { ApiResponse } from '../models/api-response.model';
+import { Product } from '../../models/product.model';
+import { ApiResponse } from '../../models/api-response.model';
 
 @Injectable({
   providedIn: 'root',
