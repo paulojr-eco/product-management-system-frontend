@@ -1,0 +1,32 @@
+.table-container {
+  width: 90vw;
+}
+
+td, th {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+td {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.mat-sort-header-container {
+  justify-content: center !important;
+}
+
+.action-cell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-container {
+  position: absolute;
+  display: flex;
+  column-gap: 10px;
+  right: 0;
+}
+
