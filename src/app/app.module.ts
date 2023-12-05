@@ -18,6 +18,7 @@ import { ProductFiltersComponent } from './product-filters/product-filters.compo
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -38,8 +39,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
   ],
-  providers: [provideClientHydration()],
+  providers: [provideClientHydration(), provideNgxMask()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

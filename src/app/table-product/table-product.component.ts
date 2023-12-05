@@ -11,21 +11,17 @@ export class TableProductComponent implements OnInit {
   products: Product[] = [];
   columnsToDisplay = ['codigo', 'descricao', 'custo'];
 
-  constructor(private productService: ProductService) {}
-
-  ngOnInit() {
-    this.productService.getData().subscribe((response) => {
-      if (response.body?.data) {
-        this.products = response.body.data;
-      }
+  constructor(private productService: ProductService) {
+    this.productService.getFilteredProducts().subscribe((products) => {
+      this.products = products;
     });
   }
 
+  ngOnInit() {
+    this.productService.getData();
+  }
+
   onDelete(product: Product) {
-    this.productService.delete(product).subscribe((response) => {
-      if (response.status === 200) {
-        this.products = this.products.filter(p => p !== product);
-      }
-    });
+    this.productService.delete(product);
   }
 }
