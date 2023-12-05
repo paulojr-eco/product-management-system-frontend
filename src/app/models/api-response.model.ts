@@ -1,5 +1,5 @@
 export type ApiResponse<T> = {
-  data: T;
+  data?: T;
   path: string,
   duration: string,
   method: string
