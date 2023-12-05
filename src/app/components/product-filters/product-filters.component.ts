@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from '../../models/product.model';
-import { ProductService } from '../../components/product-service/product.service';
+import { ProductService } from '../../services/product-service/product.service';
 
 @Component({
   selector: 'app-product-filters',

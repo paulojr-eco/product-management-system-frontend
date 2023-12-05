@@ -14,11 +14,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { ProductFiltersComponent } from './services/product-filters/product-filters.component';
+import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { ProductSearchComponent } from './components/product-search/product-search.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     TableProductComponent,
     ActionBarComponent,
     ProductFiltersComponent,
+    ProductSearchComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
