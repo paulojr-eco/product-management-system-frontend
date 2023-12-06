@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product-service/product-service.service';
 import { Buffer } from 'buffer';
-
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -26,12 +25,14 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
-      this.productService.getById(Number(this.id));
-      if (this.product && this.product.imagem) {
-        this.imageSrc =
-          'data:image/jpeg;base64,' +
-          new Buffer(this.product.imagem).toString('base64');
-      }
+      this.productService.getById(Number(this.id)).subscribe((response) => {
+        if (response.status >= 200) {
+          if (this.product && this.product.imagem) {
+            const bufferImage = Buffer.from(this.product.imagem);
+            this.imageSrc = bufferImage.toString('utf-8');
+          }
+        }
+      });
     } else {
       this.productService.eraseProduct();
     }
@@ -53,8 +54,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   emitValue() {
-    this.productService.updateProductImage(
-      this.imageSrc
-    );
+    this.productService.updateProductImage(this.imageSrc);
   }
 }

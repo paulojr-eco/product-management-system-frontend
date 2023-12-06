@@ -4,7 +4,7 @@ export class Product {
   id!: number;
   descricao!: string;
   custo!: number;
-  imagem!: Buffer;
+  imagem!: string;
   produtoLojas: ProductStore[] = [];
   constructor() {}
 }

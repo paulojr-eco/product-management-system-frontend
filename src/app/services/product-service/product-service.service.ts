@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
 import { ProductStore } from '../../models/product-store.model';
-import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +18,15 @@ export class ProductService {
   emitValuesFields$ = this.emitValuesFields.asObservable();
 
   getById(id: number) {
-    this.http
+    return this.http
       .get<ApiResponse<Product>>(`http://localhost:3000/api/product/${id}`, {
         observe: 'response',
       })
-      .subscribe((response) => {
-        this.product.next(response.body?.data!);
-      });
+      .pipe(
+        tap((response) => {
+          this.product.next(response.body?.data!);
+        })
+      );
   }
 
   deleteProductStore(productStore: ProductStore) {
@@ -143,10 +144,7 @@ export class ProductService {
 
   updateProductImage(imageSrc: string) {
     const productCopy = { ...this.product.value };
-    const parts = imageSrc.split(';');
-    const imageData = parts[1].split(',')[1];
-    const imageBuffer = Buffer.from(imageData, 'base64');
-    productCopy.imagem = imageBuffer;
+    productCopy.imagem = imageSrc;
     this.product.next(productCopy);
   }
 
