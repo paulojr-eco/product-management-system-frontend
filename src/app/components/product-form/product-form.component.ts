@@ -35,6 +35,9 @@ export class ProductFormComponent implements OnInit {
     } else {
       this.productService.eraseProduct();
     }
+    this.productService.emitValuesFields$.subscribe(() => {
+      this.emitValue();
+    });
   }
 
   handleImageChange(event: Event) {
@@ -47,5 +50,11 @@ export class ProductFormComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+
+  emitValue() {
+    this.productService.updateProductImage(
+      this.imageSrc
+    );
   }
 }

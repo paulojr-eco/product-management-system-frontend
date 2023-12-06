@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
 import { ProductStore } from '../../models/product-store.model';
+import { Buffer } from 'buffer';
 
 @Injectable({
   providedIn: 'root',
@@ -137,6 +138,15 @@ export class ProductService {
     const productCopy = { ...this.product.value };
     productCopy.descricao = description;
     productCopy.custo = parseFloat(cost);
+    this.product.next(productCopy);
+  }
+
+  updateProductImage(imageSrc: string) {
+    const productCopy = { ...this.product.value };
+    const parts = imageSrc.split(';');
+    const imageData = parts[1].split(',')[1];
+    const imageBuffer = Buffer.from(imageData, 'base64');
+    productCopy.imagem = imageBuffer;
     this.product.next(productCopy);
   }
 
