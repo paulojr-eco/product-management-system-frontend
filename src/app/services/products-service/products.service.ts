@@ -24,32 +24,41 @@ export class ProductsService {
       });
   }
 
-  save(product: Product) {
-    return this.http
-      .post<ApiResponse<Product>>(
-        'http://localhost:3000/api/product',
-        {
-          productParams: {
-            descricao: product.descricao,
-            custo: product.custo,
-            imagem: product.imagem,
-          },
-          productStoreParams: product.produtoLojas.map((pl) => ({
-            idLoja: pl.idLoja,
-            precoVenda: pl.precoVenda,
-          })),
+  add(product: Product) {
+    return this.http.post<ApiResponse<Product>>(
+      'http://localhost:3000/api/product',
+      {
+        productParams: {
+          descricao: product.descricao,
+          custo: product.custo,
+          imagem: product.imagem,
         },
-        {
-          observe: 'response',
-        }
-      )
-      .pipe(
-        tap((response) => {
-          if (response.status >= 200) {
-            console.log('!sucesso!')
-          }
-        })
-      );
+        productStoreParams: product.produtoLojas.map((pl) => ({
+          idLoja: pl.idLoja,
+          precoVenda: pl.precoVenda,
+        })),
+      },
+      {
+        observe: 'response',
+      }
+    );
+  }
+
+  update(product: Product) {
+    return this.http.patch<ApiResponse<Product>>(
+      'http://localhost:3000/api/product',
+      {
+        product: {
+          id: product.id,
+          descricao: product.descricao,
+          custo: product.custo,
+          imagem: product.imagem,
+        },
+      },
+      {
+        observe: 'response',
+      }
+    );
   }
 
   delete(product: Product) {
