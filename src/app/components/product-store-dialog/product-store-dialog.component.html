@@ -1,6 +1,6 @@
 <div class="dialog-container">
   <div class="dialog-action-bar">
-    <button mat-fab class="button-fab" mat-dialog-close>
+    <button mat-fab class="button-fab" disabled={{disableSaveButton}} mat-dialog-close (click)="handleSave(storeSelect.value, salePriceInput.value)">
       <mat-icon class="icon">save</mat-icon>
     </button>
     <div>Alteração/Inclusão de Preço</div>
@@ -11,10 +11,10 @@
   <div class="dialog-content">
     <mat-form-field>
       <mat-label>Loja *</mat-label>
-      <mat-select>
-        @for (productStore of productsStore; track productStore) {
-        <mat-option [value]="productStore.idLoja">{{
-          "Loja " + productStore.idLoja
+      <mat-select [(value)]="currentProductStore.idLoja" #storeSelect (valueChange)="handleDisableSaveButton(storeSelect.value, salePriceInput.value)">
+        @for (store of stores; track store) {
+        <mat-option [value]="store.id">{{
+          store.descricao
         }}</mat-option>
         }
       </mat-select>
@@ -27,6 +27,8 @@
         type="text"
         mask="0*.00"
         name="sale-price"
+        [(ngModel)]="currentProductStore.precoVenda"
+        (change)="handleDisableSaveButton(storeSelect.value, salePriceInput.value)"
         required
       />
     </mat-form-field>

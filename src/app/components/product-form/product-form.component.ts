@@ -33,6 +33,7 @@ export class ProductFormComponent implements OnInit {
           new Buffer(this.product.imagem).toString('base64');
       }
     } else {
+      this.productService.eraseProduct();
     }
   }
 

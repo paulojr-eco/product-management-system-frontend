@@ -24,7 +24,35 @@ export class ProductsService {
       });
   }
 
-  delete(product: Product): Observable<any> {
+  save(product: Product) {
+    return this.http
+      .post<ApiResponse<Product>>(
+        'http://localhost:3000/api/product',
+        {
+          productParams: {
+            descricao: product.descricao,
+            custo: product.custo,
+            imagem: product.imagem,
+          },
+          productStoreParams: product.produtoLojas.map((pl) => ({
+            idLoja: pl.idLoja,
+            precoVenda: pl.precoVenda,
+          })),
+        },
+        {
+          observe: 'response',
+        }
+      )
+      .pipe(
+        tap((response) => {
+          if (response.status >= 200) {
+            console.log('!sucesso!')
+          }
+        })
+      );
+  }
+
+  delete(product: Product) {
     return this.http
       .delete<ApiResponse<Product>>(
         `http://localhost:3000/api/product/${product.id}`,
@@ -32,8 +60,10 @@ export class ProductsService {
       )
       .pipe(
         tap((response) => {
-          if (response.status === 200) {
-            this.products.next(this.products.value.filter((p) => p !== product));
+          if (response.status >= 200) {
+            this.products.next(
+              this.products.value.filter((p) => p !== product)
+            );
             this.filteredProducts.next(
               this.products.value.filter((p) => p !== product)
             );

@@ -5,6 +5,6 @@ export class Product {
   descricao!: string;
   custo!: number;
   imagem!: Buffer;
-  produtoLojas!: ProductStore[];
+  produtoLojas: ProductStore[] = [];
   constructor() {}
 }

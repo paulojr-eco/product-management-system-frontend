@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from '../../services/product-service/product-service.service';
 import { ProductsService } from '../../services/products-service/products.service';
 import { Product } from '../../models/product.model';
+import { ProductFormFieldsComponent } from '../product-form-fields/product-form-fields.component';
 
 @Component({
   selector: 'app-action-bar',
@@ -34,6 +35,11 @@ export class ActionBarComponent {
         });
         break;
       case 'save':
+        this.productService.triggerEmitValues();
+        this.productsService.save(this.product).subscribe(() => {
+          this.router.navigate(['']);
+        });
+        break;
       default:
         break;
     }
