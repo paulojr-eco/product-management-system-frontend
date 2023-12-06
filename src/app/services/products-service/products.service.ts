@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
 
@@ -25,6 +25,24 @@ export class ProductsService {
   }
 
   add(product: Product) {
+    if (!product.produtoLojas || product.produtoLojas.length === 0) {
+      return throwError(
+        () =>
+          new Error(
+            'Não é possível cadastrar produto sem definir o preço de ao menos uma loja'
+          )
+      );
+    }
+
+    if (!product.descricao || product.descricao === '' || !product.custo) {
+      return throwError(
+        () =>
+          new Error(
+            'Os campos descrição e custo são obrigatórios para cadastrar um produto'
+          )
+      );
+    }
+
     return this.http.post<ApiResponse<Product>>(
       'http://localhost:3000/api/product',
       {

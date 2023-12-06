@@ -68,12 +68,15 @@ export class ProductStoreDialogComponent implements AfterViewInit {
           this.productService.triggerUpdate();
         });
     } else {
-      this.productService.addProductStoreToNewProduct(parseInt(storeId), parseFloat(salePrice));
+      this.productService.addProductStoreToNewProduct(
+        parseInt(storeId),
+        parseFloat(salePrice)
+      );
     }
   }
 
   handleDisableSaveButton(store: string, salePrice: string) {
-    if (store !== '' && salePrice !== '') {
+    if (store && salePrice) {
       this.disableSaveButton = false;
     }
   }

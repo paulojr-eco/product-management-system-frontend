@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { ProductService } from '../../services/product-service/product-service.service';
 import { Product } from '../../models/product.model';
-import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-product-form-fields',
@@ -34,7 +33,9 @@ export class ProductFormFieldsComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     if (this.product) {
-      this.costInput.nativeElement.value = this.product.custo || '';
+      setTimeout(() => {
+        this.costInput.nativeElement.value = this.product.custo || '';
+      }, 0);
     }
   }
 

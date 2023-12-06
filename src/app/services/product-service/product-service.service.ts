@@ -30,20 +30,28 @@ export class ProductService {
   }
 
   deleteProductStore(productStore: ProductStore) {
-    this.http
-      .delete<ApiResponse<ProductStore>>(
-        `http://localhost:3000/api/product-store/${productStore.id}`,
-        { observe: 'response' }
-      )
-      .subscribe((response) => {
-        if (response.status >= 200) {
-          const productCopy = { ...this.product.value };
-          productCopy.produtoLojas = productCopy.produtoLojas.filter(
-            (pl) => pl.id !== productStore.id
-          );
-          this.product.next(productCopy);
-        }
-      });
+    if (this.product.value.id) {
+      this.http
+        .delete<ApiResponse<ProductStore>>(
+          `http://localhost:3000/api/product-store/${productStore.id}`,
+          { observe: 'response' }
+        )
+        .subscribe((response) => {
+          if (response.status >= 200) {
+            const productCopy = { ...this.product.value };
+            productCopy.produtoLojas = productCopy.produtoLojas.filter(
+              (pl) => pl.id !== productStore.id
+            );
+            this.product.next(productCopy);
+          }
+        });
+    } else {
+      const productCopy = { ...this.product.value };
+      productCopy.produtoLojas = productCopy.produtoLojas.filter(
+        (pl) => pl.idLoja !== productStore.idLoja
+      );
+      this.product.next(productCopy);
+    }
   }
 
   updateProductStore(

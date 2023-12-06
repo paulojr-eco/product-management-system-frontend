@@ -14,7 +14,7 @@
         </div>
       </th>
       <td mat-cell *matCellDef="let productStore" class="td-store">
-        {{ matchStore(productStore.idLoja) }}
+        {{ productStore.idLoja + ' - ' + matchStore(productStore.idLoja) }}
       </td>
     </ng-container>
     <ng-container matColumnDef="preco-venda">

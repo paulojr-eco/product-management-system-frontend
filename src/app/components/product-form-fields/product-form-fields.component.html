@@ -5,10 +5,10 @@
   </mat-form-field>
   <mat-form-field class="description-input">
     <mat-label>Descrição</mat-label>
-    <input #descriptionInput matInput type="text" required value="{{product.descricao ? product.descricao : ''}}"/>
+    <input #descriptionInput matInput type="text" maxlength="60" required value="{{product.descricao ? product.descricao : ''}}"/>
   </mat-form-field>
   <mat-form-field class="cost-input">
     <mat-label>Custo</mat-label>
-    <input #costInput matInput type="text" mask="0*.00" [(ngModel)]="product.custo" name="cost"/>
+    <input #costInput matInput type="text" mask="0*.000" [(ngModel)]="product.custo" name="cost"/>
   </mat-form-field>
 </form>

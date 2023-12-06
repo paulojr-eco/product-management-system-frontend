@@ -14,7 +14,7 @@
       <mat-select [(value)]="currentProductStore.idLoja" #storeSelect (valueChange)="handleDisableSaveButton(storeSelect.value, salePriceInput.value)">
         @for (store of stores; track store) {
         <mat-option [value]="store.id">{{
-          store.descricao
+          store.id + ' - ' + store.descricao
         }}</mat-option>
         }
       </mat-select>
