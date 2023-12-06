@@ -24,20 +24,22 @@ export class ProductsService {
       });
   }
 
-  delete(product: Product) {
-    this.http
+  delete(product: Product): Observable<any> {
+    return this.http
       .delete<ApiResponse<Product>>(
         `http://localhost:3000/api/product/${product.id}`,
         { observe: 'response' }
       )
-      .subscribe((response) => {
-        if (response.status === 200) {
-          this.products.next(this.products.value.filter((p) => p !== product));
-          this.filteredProducts.next(
-            this.products.value.filter((p) => p !== product)
-          );
-        }
-      });
+      .pipe(
+        tap((response) => {
+          if (response.status === 200) {
+            this.products.next(this.products.value.filter((p) => p !== product));
+            this.filteredProducts.next(
+              this.products.value.filter((p) => p !== product)
+            );
+          }
+        })
+      );
   }
 
   setProducts(products: Product[]) {

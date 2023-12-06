@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products-service/products.service';
 import { Product } from '../../models/product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-table-product',
@@ -11,17 +12,24 @@ export class TableProductComponent implements OnInit {
   products: Product[] = [];
   columnsToDisplay = ['codigo', 'descricao', 'custo'];
 
-  constructor(private productService: ProductsService) {
-    this.productService.getFilteredProducts().subscribe((products) => {
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) {
+    this.productsService.getFilteredProducts().subscribe((products) => {
       this.products = products;
     });
   }
 
   ngOnInit() {
-    this.productService.getData();
+    this.productsService.getData();
   }
 
   onDelete(product: Product) {
-    this.productService.delete(product);
+    this.productsService.delete(product).subscribe(() => {});
+  }
+
+  onEdit(product: Product) {
+    this.router.navigate(['product', product.id]);
   }
 }

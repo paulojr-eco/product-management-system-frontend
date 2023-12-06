@@ -23,6 +23,9 @@ import { ProductSearchComponent } from './components/product-search/product-sear
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { ProductFormTableComponent } from './components/product-form-table/product-form-table.component';
 import { ProductFormFieldsComponent } from './components/product-form-fields/product-form-fields.component';
+import { ProductStoreDialogComponent } from './components/product-store-dialog/product-store-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,7 @@ import { ProductFormFieldsComponent } from './components/product-form-fields/pro
     ProductFormComponent,
     ProductFormTableComponent,
     ProductFormFieldsComponent,
+    ProductStoreDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +53,8 @@ import { ProductFormFieldsComponent } from './components/product-form-fields/pro
     MatInputModule,
     NgxMaskDirective,
     NgxMaskPipe,
+    MatDialogModule,
+    MatSelectModule,
   ],
   providers: [provideClientHydration(), provideNgxMask()],
   bootstrap: [AppComponent],

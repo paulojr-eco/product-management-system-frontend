@@ -1,0 +1,25 @@
+@use "@angular/material" as mat;
+
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+}
+
+.dialog-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 60px;
+  column-gap: 30%;
+  background-color: mat.get-color-from-palette(mat.$deep-orange-palette, 400);
+}
+
+.dialog-content {
+  display: flex;
+  column-gap: 20px;
+  padding-top: 20px;
+}

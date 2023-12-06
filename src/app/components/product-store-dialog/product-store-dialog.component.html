@@ -1,0 +1,34 @@
+<div class="dialog-container">
+  <div class="dialog-action-bar">
+    <button mat-fab class="button-fab" mat-dialog-close>
+      <mat-icon class="icon">save</mat-icon>
+    </button>
+    <div>Alteração/Inclusão de Preço</div>
+    <button mat-fab class="button-fab" mat-dialog-close>
+      <mat-icon class="icon">close</mat-icon>
+    </button>
+  </div>
+  <div class="dialog-content">
+    <mat-form-field>
+      <mat-label>Loja *</mat-label>
+      <mat-select>
+        @for (productStore of productsStore; track productStore) {
+        <mat-option [value]="productStore.idLoja">{{
+          "Loja " + productStore.idLoja
+        }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="sale-price-input">
+      <mat-label>Preço de Venda</mat-label>
+      <input
+        #salePriceInput
+        matInput
+        type="text"
+        mask="0*.00"
+        name="sale-price"
+        required
+      />
+    </mat-form-field>
+  </div>
+</div>
