@@ -26,6 +26,7 @@ import { ProductFormFieldsComponent } from './components/product-form-fields/pro
 import { ProductStoreDialogComponent } from './components/product-store-dialog/product-store-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxMaskPipe,
     MatDialogModule,
     MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [provideClientHydration(), provideNgxMask()],
   bootstrap: [AppComponent],

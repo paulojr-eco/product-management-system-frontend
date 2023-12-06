@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ProductService } from '../../services/product-service/product-service.service';
+import { ProductService } from '../../services/product/product-service.service';
 import { ProductStore } from '../../models/product-store.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductStoreDialogComponent } from '../product-store-dialog/product-store-dialog.component';

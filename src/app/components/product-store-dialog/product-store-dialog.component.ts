@@ -6,7 +6,7 @@ import {
   Inject,
   ViewChild,
 } from '@angular/core';
-import { ProductService } from '../../services/product-service/product-service.service';
+import { ProductService } from '../../services/product/product-service.service';
 import { ProductStore } from '../../models/product-store.model';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '../../models/store.model';
