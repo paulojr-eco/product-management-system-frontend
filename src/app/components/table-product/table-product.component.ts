@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products/products.service';
 import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../services/spinner/spinner.service';
 
 @Component({
   selector: 'app-table-product',
@@ -14,7 +15,8 @@ export class TableProductComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) {
     this.productsService.getFilteredProducts().subscribe((products) => {
       this.products = products;
@@ -22,11 +24,17 @@ export class TableProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productsService.getData();
+    this.spinnerService.show();
+    this.productsService.getData().subscribe(() => {
+      this.spinnerService.hide();
+    });
   }
 
   onDelete(product: Product) {
-    this.productsService.delete(product).subscribe(() => {});
+    this.spinnerService.show();
+    this.productsService.delete(product).subscribe(() => {
+      this.spinnerService.hide();
+    });
   }
 
   onEdit(product: Product) {

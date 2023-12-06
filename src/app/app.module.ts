@@ -27,6 +27,7 @@ import { ProductStoreDialogComponent } from './components/product-store-dialog/p
 import {MatSelectModule} from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     ProductFormTableComponent,
     ProductFormFieldsComponent,
     ProductStoreDialogComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,

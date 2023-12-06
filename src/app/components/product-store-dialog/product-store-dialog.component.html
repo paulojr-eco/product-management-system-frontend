@@ -25,7 +25,7 @@
         #salePriceInput
         matInput
         type="text"
-        mask="0*.00"
+        mask="0*.000"
         name="sale-price"
         [(ngModel)]="currentProductStore.precoVenda"
         (change)="handleDisableSaveButton(storeSelect.value, salePriceInput.value)"

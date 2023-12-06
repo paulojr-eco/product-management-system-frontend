@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
 import { ProductStore } from '../../models/product-store.model';
+import { SpinnerService } from '../spinner/spinner.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,10 @@ export class ProductService {
       );
   }
 
-  deleteProductStore(productStore: ProductStore) {
+  deleteProductStore(
+    productStore: ProductStore,
+    spinnerService: SpinnerService
+  ) {
     if (this.product.value.id) {
       this.http
         .delete<ApiResponse<ProductStore>>(
@@ -44,6 +48,7 @@ export class ProductService {
             );
             this.product.next(productCopy);
           }
+          spinnerService.hide();
         });
     } else {
       const productCopy = { ...this.product.value };
@@ -51,6 +56,7 @@ export class ProductService {
         (pl) => pl.idLoja !== productStore.idLoja
       );
       this.product.next(productCopy);
+      spinnerService.hide();
     }
   }
 
@@ -59,7 +65,7 @@ export class ProductService {
     salePrice: number,
     productStoreId: number
   ) {
-    this.http
+    return this.http
       .patch<ApiResponse<ProductStore>>(
         `http://localhost:3000/api/product-store`,
         {
@@ -72,19 +78,22 @@ export class ProductService {
         },
         { observe: 'response' }
       )
-      .subscribe((response) => {
-        if (response.status >= 200) {
-          const productCopy = { ...this.product.value };
-          const productStoreIndex = productCopy.produtoLojas.findIndex(
-            (pl) => pl.id === productStoreId
-          );
-          if (productStoreIndex !== -1) {
-            productCopy.produtoLojas[productStoreIndex].idLoja = storeId;
-            productCopy.produtoLojas[productStoreIndex].precoVenda = salePrice;
+      .pipe(
+        tap((response) => {
+          if (response.status >= 200) {
+            const productCopy = { ...this.product.value };
+            const productStoreIndex = productCopy.produtoLojas.findIndex(
+              (pl) => pl.id === productStoreId
+            );
+            if (productStoreIndex !== -1) {
+              productCopy.produtoLojas[productStoreIndex].idLoja = storeId;
+              productCopy.produtoLojas[productStoreIndex].precoVenda =
+                salePrice;
+            }
+            this.product.next(productCopy);
           }
-          this.product.next(productCopy);
-        }
-      });
+        })
+      );
   }
 
   addProductStore(storeId: number, salePrice: number) {

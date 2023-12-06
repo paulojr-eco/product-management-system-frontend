@@ -14,14 +14,16 @@ export class ProductsService {
   private filteredProducts = new BehaviorSubject<Product[]>([]);
 
   getData() {
-    this.http
+    return this.http
       .get<ApiResponse<Product[]>>('http://localhost:3000/api/products', {
         observe: 'response',
       })
-      .subscribe((response) => {
-        this.products.next(response.body?.data!);
-        this.filteredProducts.next(response.body?.data!);
-      });
+      .pipe(
+        tap((response) => {
+          this.products.next(response.body?.data!);
+          this.filteredProducts.next(response.body?.data!);
+        })
+      );
   }
 
   add(product: Product) {

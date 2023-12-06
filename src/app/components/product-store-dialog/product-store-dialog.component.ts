@@ -12,6 +12,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '../../models/store.model';
 import { StoresService } from '../../services/stores/stores.service';
 import { Product } from '../../models/product.model';
+import { SpinnerService } from '../../services/spinner/spinner.service';
 
 @Component({
   selector: 'app-product-store-dialog',
@@ -30,7 +31,8 @@ export class ProductStoreDialogComponent implements AfterViewInit {
     private productService: ProductService,
     private storeService: StoresService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private spinnerService: SpinnerService
   ) {
     this.productService.getProduct().subscribe((product) => {
       this.product = product;
@@ -55,23 +57,30 @@ export class ProductStoreDialogComponent implements AfterViewInit {
   }
 
   handleSave(storeId: string, salePrice: string) {
+    this.spinnerService.show();
     if (this.currentProductStore.id) {
-      this.productService.updateProductStore(
-        parseInt(storeId),
-        parseFloat(salePrice),
-        this.currentProductStore.id
-      );
+      this.productService
+        .updateProductStore(
+          parseInt(storeId),
+          parseFloat(salePrice),
+          this.currentProductStore.id
+        )
+        .subscribe(() => {
+          this.spinnerService.hide();
+        });
     } else if (this.product.id) {
       this.productService
         .addProductStore(parseInt(storeId), parseFloat(salePrice))
         .subscribe(() => {
           this.productService.triggerUpdate();
+          this.spinnerService.hide();
         });
     } else {
       this.productService.addProductStoreToNewProduct(
         parseInt(storeId),
         parseFloat(salePrice)
       );
+      this.spinnerService.hide();
     }
   }
 

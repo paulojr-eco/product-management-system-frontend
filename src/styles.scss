@@ -24,9 +24,6 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 18px !important;
   color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .icon {
@@ -78,10 +75,10 @@ body {
 .general-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 90vw;
+  align-items: center;
+  padding-top: 8vh;
+  padding-bottom: 8vh;
 }
 
 .fields-container {
@@ -98,4 +95,17 @@ body {
     --mat-mdc-snack-bar-button-color: #fff;
     --mdc-snackbar-supporting-text-color: #fff;
   }
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }

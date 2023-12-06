@@ -9,10 +9,10 @@
   </mat-form-field>
   <mat-form-field class="cost-input">
     <mat-label>Custo</mat-label>
-    <input #costInput matInput type="text" mask="0*.00" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
+    <input #costInput matInput type="text" mask="0*.000" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
   </mat-form-field>
   <mat-form-field class="price-input">
     <mat-label>Preço de Venda</mat-label>
-    <input #priceInput matInput type="text" mask="0*.00" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
+    <input #priceInput matInput type="text" mask="0*.000" (keyup)="applyFilters(idInput.value, descriptionInput.value, costInput.value, priceInput.value)"/>
   </mat-form-field>
 </form>

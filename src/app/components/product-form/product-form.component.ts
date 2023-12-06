@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product/product-service.service';
 import { Buffer } from 'buffer';
+import { SpinnerService } from '../../services/spinner/spinner.service';
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -15,7 +16,8 @@ export class ProductFormComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private spinnerService: SpinnerService
   ) {
     this.productService.getProduct().subscribe((product) => {
       this.product = product;
@@ -25,6 +27,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
+      this.spinnerService.show();
       this.productService.getById(Number(this.id)).subscribe((response) => {
         if (response.status >= 200) {
           if (this.product && this.product.imagem) {
@@ -32,6 +35,7 @@ export class ProductFormComponent implements OnInit {
             this.imageSrc = bufferImage.toString('utf-8');
           }
         }
+        this.spinnerService.hide();
       });
     } else {
       this.productService.eraseProduct();

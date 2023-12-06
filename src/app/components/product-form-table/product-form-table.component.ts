@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ProductService } from '../../services/product/product-service.service';
 import { ProductStore } from '../../models/product-store.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +13,7 @@ import { StoresService } from '../../services/stores/stores.service';
 import { Store } from '../../models/store.model';
 import { MatTable } from '@angular/material/table';
 import { Subscription } from 'rxjs';
+import { SpinnerService } from '../../services/spinner/spinner.service';
 
 @Component({
   selector: 'app-product-form-table',
@@ -23,7 +30,8 @@ export class ProductFormTableComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private storeService: StoresService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private spinnerService: SpinnerService
   ) {
     this.productService.getProduct().subscribe((product) => {
       this.productsStore = product.produtoLojas;
@@ -52,7 +60,8 @@ export class ProductFormTableComponent implements OnInit, OnDestroy {
   }
 
   onDelete(productStore: ProductStore) {
-    this.productService.deleteProductStore(productStore);
+    this.spinnerService.show();
+    this.productService.deleteProductStore(productStore, this.spinnerService);
   }
 
   matchStore(id: number) {
