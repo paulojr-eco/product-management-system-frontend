@@ -5,6 +5,7 @@ import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
 import { ProductStore } from '../../models/product-store.model';
 import { SpinnerService } from '../spinner/spinner.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class ProductService {
 
   getById(id: number) {
     return this.http
-      .get<ApiResponse<Product>>(`http://localhost:3000/api/product/${id}`, {
+      .get<ApiResponse<Product>>(`${environment.apiUrl}/product/${id}`, {
         observe: 'response',
       })
       .pipe(

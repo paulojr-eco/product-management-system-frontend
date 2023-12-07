@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class ProductsService {
 
   getData() {
     return this.http
-      .get<ApiResponse<Product[]>>('http://localhost:3000/api/products', {
+      .get<ApiResponse<Product[]>>(`${environment.apiUrl}/products`, {
         observe: 'response',
       })
       .pipe(
@@ -46,7 +47,7 @@ export class ProductsService {
     }
 
     return this.http.post<ApiResponse<Product>>(
-      'http://localhost:3000/api/product',
+      `${environment.apiUrl}/product`,
       {
         productParams: {
           descricao: product.descricao,
@@ -66,7 +67,7 @@ export class ProductsService {
 
   update(product: Product) {
     return this.http.patch<ApiResponse<Product>>(
-      'http://localhost:3000/api/product',
+      `${environment.apiUrl}/product`,
       {
         product: {
           id: product.id,
@@ -84,7 +85,7 @@ export class ProductsService {
   delete(product: Product) {
     return this.http
       .delete<ApiResponse<Product>>(
-        `http://localhost:3000/api/product/${product.id}`,
+        `${environment.apiUrl}/product/${product.id}`,
         { observe: 'response' }
       )
       .pipe(

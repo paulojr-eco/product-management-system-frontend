@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '../../models/store.model';
 import { ApiResponse } from '../../models/api-response.model';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class StoresService {
 
   constructor(private http: HttpClient) {
     this.http
-      .get<ApiResponse<Store[]>>(`http://localhost:3000/api/stores`, {
+      .get<ApiResponse<Store[]>>(`${environment.apiUrl}/stores`, {
         observe: 'response',
       })
       .subscribe((response) => {
