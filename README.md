@@ -1,27 +1,42 @@
-# ProductManagementSystemFrontend
+# Product Management System Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+Essa aplicação consiste na interface de usuário para exibição das funções construídas no <a href="https://github.com/paulojr-eco/product-management-system-backend" target="_blank"> projeto do backend </a>.
 
-## Development server
+## Tecnologias Utilizadas:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<div>
 
-## Code scaffolding
+- <img align="left" alt="NodeJs" width="30px" style="padding-right:10px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" /> Angular
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- <img align="left" alt="NodeJs" width="30px" style="padding-right:10px;" src="https://material.angular.io/assets/img/angular-material-logo.svg" /> Angular Material
 
-## Build
+<div>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Com base nessas ferramentas foi possível construir estruturas tabulares que continham as devidas informações sobre os produtos gerenciados, bem como possibilitam que o usuário realize ações de criação, edição e exclusão de elementos:
 
-## Running unit tests
+<div align="center">
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  Página de Exibição de Produtos:
 
-## Running end-to-end tests
+  <img width="800px" src="src/assets/ui-views/view-products.png"/>
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+  Página de Edição de Produto:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+  <img width="800px" src="src/assets/ui-views/view-product.png"/>
+</div>
+
+## Como executar o projeto:
+```bash
+# Clonar o repositório
+git clone https://github.com/paulojr-eco/product-management-system-frontend.git
+
+# Acessar o diretório
+cd product-management-system-fronted
+
+# Instalar as dependências
+npm install
+
+#Executar a aplicação
+ng serve
+```
