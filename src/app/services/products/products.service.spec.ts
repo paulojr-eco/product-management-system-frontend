@@ -5,7 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { Product } from '../../models/product.model';
 import { ProductsService } from './products.service';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { apiResponseMock } from '../../mocks/api-response.mock';
 import {
   productMock,
