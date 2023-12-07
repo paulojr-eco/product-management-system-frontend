@@ -53,9 +53,12 @@ export class ProductFormTableComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  openAddOrEditDialog(productStore?: ProductStore) {
-    const dialogRef = this.dialog.open(ProductStoreDialogComponent, {
-      data: { productStore: productStore },
+  openAddOrEditDialog(index?: number, productStore?: ProductStore) {
+    this.dialog.open(ProductStoreDialogComponent, {
+      data: { 
+        productStore: productStore,
+        index: index,
+      },
     });
   }
 

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap, throwError } from 'rxjs';
 import { Product } from '../../models/product.model';
 import { ApiResponse } from '../../models/api-response.model';
 import { ProductStore } from '../../models/product-store.model';
@@ -60,80 +60,164 @@ export class ProductService {
     }
   }
 
+  alreadyHasProductStore(params: {
+    storeId: number;
+    productStoreId?: number;
+    index?: number;
+  }) {
+    if (params.productStoreId) {
+      const productStoresWithoutCurrent =
+        this.product.value.produtoLojas.filter(
+          (pl) => pl.id !== params.productStoreId
+        );
+      if (productStoresWithoutCurrent.length === 0) {
+        return false;
+      }
+      if (
+        productStoresWithoutCurrent.some((pl) => pl.idLoja === params.storeId)
+      ) {
+        return true;
+      }
+    } else if (params.index !== undefined) {
+      const productCopy = { ...this.product.value, produtoLojas: [...this.product.value.produtoLojas] };
+      productCopy.produtoLojas.splice(params.index, 1);
+      if (productCopy.produtoLojas.length === 0) {
+        return false;
+      } else if (
+        productCopy.produtoLojas.some((pl) => pl.idLoja === params.storeId)
+      ) {
+        return true;
+      }
+    } else {
+      if (
+        this.product.value.produtoLojas.some(
+          (pl) => pl.idLoja === params.storeId
+        )
+      ) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   updateProductStore(
     storeId: number,
     salePrice: number,
     productStoreId: number
   ) {
-    return this.http
-      .patch<ApiResponse<ProductStore>>(
-        `http://localhost:3000/api/product-store`,
-        {
-          productStoreParams: {
-            id: productStoreId,
-            idProduto: this.product.value.id,
-            idLoja: storeId,
-            precoVenda: salePrice,
-          },
-        },
-        { observe: 'response' }
-      )
-      .pipe(
-        tap((response) => {
-          if (response.status >= 200) {
-            const productCopy = { ...this.product.value };
-            const productStoreIndex = productCopy.produtoLojas.findIndex(
-              (pl) => pl.id === productStoreId
-            );
-            if (productStoreIndex !== -1) {
-              productCopy.produtoLojas[productStoreIndex].idLoja = storeId;
-              productCopy.produtoLojas[productStoreIndex].precoVenda =
-                salePrice;
-            }
-            this.product.next(productCopy);
-          }
-        })
+    if (this.alreadyHasProductStore({ storeId, productStoreId })) {
+      return throwError(
+        () =>
+          new Error(
+            'Não é permitido mais que um preço de venda para a mesma loja.'
+          )
       );
+    } else {
+      return this.http
+        .patch<ApiResponse<ProductStore>>(
+          `http://localhost:3000/api/product-store`,
+          {
+            productStoreParams: {
+              id: productStoreId,
+              idProduto: this.product.value.id,
+              idLoja: storeId,
+              precoVenda: salePrice,
+            },
+          },
+          { observe: 'response' }
+        )
+        .pipe(
+          tap((response) => {
+            if (response.status >= 200) {
+              const productCopy = { ...this.product.value };
+              const productStoreIndex = productCopy.produtoLojas.findIndex(
+                (pl) => pl.id === productStoreId
+              );
+              if (productStoreIndex !== -1) {
+                productCopy.produtoLojas[productStoreIndex].idLoja = storeId;
+                productCopy.produtoLojas[productStoreIndex].precoVenda =
+                  salePrice;
+              }
+              this.product.next(productCopy);
+            }
+          })
+        );
+    }
   }
 
   addProductStore(storeId: number, salePrice: number) {
-    return this.http
-      .post<ApiResponse<ProductStore>>(
-        `http://localhost:3000/api/product-store`,
-        {
-          productStoreParams: {
-            idProduto: this.product.value.id,
-            idLoja: storeId,
-            precoVenda: salePrice,
-          },
-        },
-        { observe: 'response' }
-      )
-      .pipe(
-        tap((response) => {
-          if (response.status >= 200) {
-            const idNewProductStore = response.body?.data!.id!;
-            const productStoreInserted = new ProductStore();
-            productStoreInserted.id = idNewProductStore;
-            productStoreInserted.idLoja = storeId;
-            productStoreInserted.precoVenda = salePrice;
-            productStoreInserted.idProduto = this.product.value.id;
-            const productCopy = { ...this.product.value };
-            productCopy.produtoLojas.push(productStoreInserted);
-            this.product.next(productCopy);
-          }
-        })
+    if (this.alreadyHasProductStore({ storeId })) {
+      return throwError(
+        () =>
+          new Error(
+            'Não é permitido mais que um preço de venda para a mesma loja.'
+          )
       );
+    } else {
+      return this.http
+        .post<ApiResponse<ProductStore>>(
+          `http://localhost:3000/api/product-store`,
+          {
+            productStoreParams: {
+              idProduto: this.product.value.id,
+              idLoja: storeId,
+              precoVenda: salePrice,
+            },
+          },
+          { observe: 'response' }
+        )
+        .pipe(
+          tap((response) => {
+            if (response.status >= 200) {
+              const idNewProductStore = response.body?.data!.id!;
+              const productStoreInserted = new ProductStore();
+              productStoreInserted.id = idNewProductStore;
+              productStoreInserted.idLoja = storeId;
+              productStoreInserted.precoVenda = salePrice;
+              productStoreInserted.idProduto = this.product.value.id;
+              const productCopy = { ...this.product.value };
+              productCopy.produtoLojas.push(productStoreInserted);
+              this.product.next(productCopy);
+            }
+          })
+        );
+    }
   }
 
   addProductStoreToNewProduct(storeId: number, salePrice: number) {
-    const newProductStore = new ProductStore();
-    newProductStore.idLoja = storeId;
-    newProductStore.precoVenda = salePrice;
-    const productCopy = { ...this.product.value };
-    productCopy.produtoLojas.push(newProductStore);
-    this.product.next(productCopy);
-    this.triggerUpdate();
+    if (this.alreadyHasProductStore({ storeId })) {
+      return new Error(
+        'Não é permitido mais que um preço de venda para a mesma loja.'
+      );
+    } else {
+      const newProductStore = new ProductStore();
+      newProductStore.idLoja = storeId;
+      newProductStore.precoVenda = salePrice;
+      const productCopy = { ...this.product.value };
+      productCopy.produtoLojas.push(newProductStore);
+      this.product.next(productCopy);
+      this.triggerUpdate();
+      return;
+    }
+  }
+
+  editProductStoreToNewProduct(
+    storeId: number,
+    salePrice: number,
+    index: number
+  ) {
+    if (this.alreadyHasProductStore({ storeId, index })) {
+      return new Error(
+        'Não é permitido mais que um preço de venda para a mesma loja.'
+      );
+    } else {
+      const productCopy = { ...this.product.value };
+      productCopy.produtoLojas[index].idLoja = storeId;
+      productCopy.produtoLojas[index].precoVenda = salePrice;
+      this.product.next(productCopy);
+      this.triggerUpdate();
+      return;
+    }
   }
 
   triggerUpdate() {

@@ -40,7 +40,7 @@ export class ProductsService {
       return throwError(
         () =>
           new Error(
-            'Os campos descrição e custo são obrigatórios para cadastrar um produto'
+            'Um ou mais campos obrigatórios não foram preenchidos corretamente.'
           )
       );
     }

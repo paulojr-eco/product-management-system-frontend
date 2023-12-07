@@ -65,7 +65,7 @@ export class ActionBarComponent implements OnInit {
               this.spinnerService.hide();
               this._snackBar.open(err.message, 'Fechar', {
                 duration: 5000,
-                panelClass: ['blue-snackbar'],
+                panelClass: ['red-snackbar'],
               });
             },
           });
