@@ -95,7 +95,7 @@ export class ProductsService {
               this.products.value.filter((p) => p !== product)
             );
             this.filteredProducts.next(
-              this.products.value.filter((p) => p !== product)
+              this.filteredProducts.value.filter((p) => p !== product)
             );
           }
         })

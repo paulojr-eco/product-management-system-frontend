@@ -44,6 +44,9 @@ dependencies:
   express:
     specifier: ^4.18.2
     version: 4.18.2
+  ngx-mask:
+    specifier: ^17.0.4
+    version: 17.0.4(@angular/common@17.0.5)(@angular/core@17.0.5)(@angular/forms@17.0.5)
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -64,6 +67,9 @@ devDependencies:
   '@angular/compiler-cli':
     specifier: ^17.0.0
     version: 17.0.5(@angular/compiler@17.0.5)(typescript@5.2.2)
+  '@faker-js/faker':
+    specifier: ^8.3.1
+    version: 8.3.1
   '@types/express':
     specifier: ^4.17.17
     version: 4.17.21
@@ -2184,6 +2190,11 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@faker-js/faker@8.3.1:
+    resolution: {integrity: sha512-FdgpFxY6V6rLZE9mmIBb9hM0xpfvQOSNOLnzolzKwsE1DH+gC7lEKV1p1IbR0lAYyvYd5a4u3qWJzowUkw1bIw==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
+    dev: true
 
   /@fastify/busboy@2.1.0:
     resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
@@ -6131,6 +6142,19 @@ packages:
   /neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
+
+  /ngx-mask@17.0.4(@angular/common@17.0.5)(@angular/core@17.0.5)(@angular/forms@17.0.5):
+    resolution: {integrity: sha512-Rfox/zLIcuEc+t8xGvDYL83KYw0P80Ctvx+uy3v/F901XLhzEXKEgPOEFRKNkQu4Eu5Y7SjnX44mGdk/1cqh3w==}
+    peerDependencies:
+      '@angular/common': '>=14.0.0'
+      '@angular/core': '>=14.0.0'
+      '@angular/forms': '>=14.0.0'
+    dependencies:
+      '@angular/common': 17.0.5(@angular/core@17.0.5)(rxjs@7.8.1)
+      '@angular/core': 17.0.5(rxjs@7.8.1)(zone.js@0.14.2)
+      '@angular/forms': 17.0.5(@angular/common@17.0.5)(@angular/core@17.0.5)(@angular/platform-browser@17.0.5)(rxjs@7.8.1)
+      tslib: 2.6.2
+    dev: false
 
   /nice-napi@1.0.2:
     resolution: {integrity: sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==}

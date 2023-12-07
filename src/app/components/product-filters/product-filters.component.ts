@@ -26,7 +26,7 @@ export class ProductFiltersComponent {
     }
     if (description !== '') {
       filteredProducts = filteredProducts.filter((p) =>
-        p.descricao.includes(description)
+        p.descricao.toLowerCase().includes(description.toLowerCase())
       );
     }
     if (cost !== '') {
