@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../../services/product/product-service.service';
+import { ProductService } from '../../services/product/product.service';
 import { ProductsService } from '../../services/products/products.service';
 import { Product } from '../../models/product.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
