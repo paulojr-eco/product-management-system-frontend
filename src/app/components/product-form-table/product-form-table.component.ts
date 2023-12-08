@@ -11,21 +11,24 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductStoreDialogComponent } from '../product-store-dialog/product-store-dialog.component';
 import { StoresService } from '../../services/stores/stores.service';
 import { Store } from '../../models/store.model';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from '../../services/spinner/spinner.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-product-form-table',
   templateUrl: './product-form-table.component.html',
   styleUrl: './product-form-table.component.scss',
 })
-export class ProductFormTableComponent implements OnInit, OnDestroy {
+export class ProductFormTableComponent implements OnInit, OnDestroy, AfterViewInit {
   productsStore: ProductStore[] = [];
+  dataSource!: MatTableDataSource<ProductStore>;
   stores: Store[] = [];
-  columnsToDisplay = ['loja', 'preco-venda'];
+  columnsToDisplay = ['idLoja', 'precoVenda'];
   private subscription!: Subscription;
   @ViewChild('tableProduct') tableProduct!: MatTable<any>;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private productService: ProductService,
@@ -35,6 +38,8 @@ export class ProductFormTableComponent implements OnInit, OnDestroy {
   ) {
     this.productService.getProduct().subscribe((product) => {
       this.productsStore = product.produtoLojas;
+      this.dataSource = new MatTableDataSource(this.productsStore);
+      this.dataSource.sort = this.sort;
     });
     this.storeService.getStores().subscribe((stores) => {
       this.stores = stores;
@@ -47,6 +52,10 @@ export class ProductFormTableComponent implements OnInit, OnDestroy {
         this.tableProduct.renderRows();
       }
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy() {
