@@ -38,7 +38,7 @@ export class ProductService {
     if (this.product.value.id) {
       this.http
         .delete<ApiResponse<ProductStore>>(
-          `http://localhost:3000/api/product-store/${productStore.id}`,
+          `${environment.apiUrl}/product-store/${productStore.id}`,
           { observe: 'response' }
         )
         .subscribe((response) => {
@@ -116,7 +116,7 @@ export class ProductService {
     } else {
       return this.http
         .patch<ApiResponse<ProductStore>>(
-          `http://localhost:3000/api/product-store`,
+          `${environment.apiUrl}/product-store`,
           {
             productStoreParams: {
               id: productStoreId,
@@ -157,7 +157,7 @@ export class ProductService {
     } else {
       return this.http
         .post<ApiResponse<ProductStore>>(
-          `http://localhost:3000/api/product-store`,
+          `${environment.apiUrl}/product-store`,
           {
             productStoreParams: {
               idProduto: this.product.value.id,
