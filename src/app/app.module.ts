@@ -24,10 +24,11 @@ import { ProductFormComponent } from './components/product-form/product-form.com
 import { ProductFormTableComponent } from './components/product-form-table/product-form-table.component';
 import { ProductFormFieldsComponent } from './components/product-form-fields/product-form-fields.component';
 import { ProductStoreDialogComponent } from './components/product-store-dialog/product-store-dialog.component';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     NgxMaskPipe,
     MatDialogModule,
     MatSelectModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSortModule,
   ],
   providers: [provideClientHydration(), provideNgxMask()],
   bootstrap: [AppComponent],

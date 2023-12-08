@@ -1,15 +1,15 @@
 <div class="table-container">
-  <table mat-table [dataSource]="products">
-    <ng-container matColumnDef="codigo">
-      <th mat-header-cell *matHeaderCellDef>Código</th>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar pelo código">Código</th>
       <td mat-cell *matCellDef="let product">{{ product.id }}</td>
     </ng-container>
     <ng-container matColumnDef="descricao">
-      <th mat-header-cell *matHeaderCellDef>Descrição</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar pela descrição">Descrição</th>
       <td mat-cell *matCellDef="let product">{{ product.descricao }}</td>
     </ng-container>
     <ng-container matColumnDef="custo">
-      <th mat-header-cell *matHeaderCellDef>Custo(R$)</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar pelo custo">Custo(R$)</th>
       <td mat-cell *matCellDef="let product">
         <div class="action-cell">
           <div class="center-element">

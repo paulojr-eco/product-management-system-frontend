@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../../services/products/products.service';
 import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../../services/spinner/spinner.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-table-product',
   templateUrl: './table-product.component.html',
   styleUrls: ['table-product.component.scss'],
 })
-export class TableProductComponent implements OnInit {
+export class TableProductComponent implements OnInit, AfterViewInit {
   products: Product[] = [];
-  columnsToDisplay = ['codigo', 'descricao', 'custo'];
+  dataSource!: MatTableDataSource<Product>;
+  columnsToDisplay = ['id', 'descricao', 'custo'];
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private productsService: ProductsService,
@@ -20,6 +24,18 @@ export class TableProductComponent implements OnInit {
   ) {
     this.productsService.getFilteredProducts().subscribe((products) => {
       this.products = products;
+      this.dataSource = new MatTableDataSource(this.products);
+      this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (
+        data: any,
+        sortHeader: string
+      ): string => {
+        if (typeof data[sortHeader] === 'string') {
+          return data[sortHeader].toLocaleLowerCase();
+        }
+
+        return data[sortHeader];
+      };
     });
   }
 
@@ -28,6 +44,10 @@ export class TableProductComponent implements OnInit {
     this.productsService.getData().subscribe(() => {
       this.spinnerService.hide();
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   onDelete(product: Product) {
