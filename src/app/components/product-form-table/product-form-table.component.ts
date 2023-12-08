@@ -15,6 +15,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { SpinnerService } from '../../services/spinner/spinner.service';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-product-form-table',
@@ -29,6 +30,7 @@ export class ProductFormTableComponent implements OnInit, OnDestroy, AfterViewIn
   private subscription!: Subscription;
   @ViewChild('tableProduct') tableProduct!: MatTable<any>;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private productService: ProductService,
@@ -40,6 +42,7 @@ export class ProductFormTableComponent implements OnInit, OnDestroy, AfterViewIn
       this.productsStore = product.produtoLojas;
       this.dataSource = new MatTableDataSource(this.productsStore);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
     });
     this.storeService.getStores().subscribe((stores) => {
       this.stores = stores;
@@ -56,6 +59,7 @@ export class ProductFormTableComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnDestroy() {
