@@ -29,6 +29,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatSortModule } from '@angular/material/sort';
+import {
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
+import { CustomPaginatorIntl } from './components/custom-paginator/custom-paginator-intl';
 
 @NgModule({
   declarations: [
@@ -61,8 +66,16 @@ import { MatSortModule } from '@angular/material/sort';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatSortModule,
+    MatPaginatorModule,
   ],
-  providers: [provideClientHydration(), provideNgxMask()],
+  providers: [
+    provideClientHydration(),
+    provideNgxMask(),
+    {
+      provide: MatPaginatorIntl,
+      useClass: CustomPaginatorIntl,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SpinnerService } from '../../services/spinner/spinner.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table-product',
@@ -16,6 +17,7 @@ export class TableProductComponent implements OnInit, AfterViewInit {
   dataSource!: MatTableDataSource<Product>;
   columnsToDisplay = ['id', 'descricao', 'custo'];
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private productsService: ProductsService,
@@ -26,6 +28,7 @@ export class TableProductComponent implements OnInit, AfterViewInit {
       this.products = products;
       this.dataSource = new MatTableDataSource(this.products);
       this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
       this.dataSource.sortingDataAccessor = (
         data: any,
         sortHeader: string
@@ -48,6 +51,7 @@ export class TableProductComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   onDelete(product: Product) {
